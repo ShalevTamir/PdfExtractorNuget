@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Title>Pdf Extractor </Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.4</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Spire.PDF" Version="9.8.5" />
+  </ItemGroup>
+
+</Project>
