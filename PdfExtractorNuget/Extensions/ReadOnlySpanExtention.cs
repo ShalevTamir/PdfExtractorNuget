@@ -38,8 +38,8 @@ namespace PdfExtractor.Extensions
         }
         internal static ReadOnlySpan<char> Replace(this ReadOnlySpan<char> span, char charToReplace, char charToReplaceWith)
         {
-            if(span == null) throw new ArgumentNullException($"{nameof(span)} can't be null");
-            
+            if (span == null) throw new ArgumentNullException($"{nameof(span)} can't be null");
+
             StringBuilder stringBuilder = new StringBuilder();
             foreach (char charInSpan in span)
             {
@@ -61,10 +61,10 @@ namespace PdfExtractor.Extensions
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            foreach(char characterToCheck in span)
+            foreach (char characterToCheck in span)
                 if (!charsToRemove.Contains(characterToCheck))
                     stringBuilder.Append(characterToCheck);
-                       
+
             return stringBuilder.ToString().AsSpan();
         }
         internal static ReadOnlySpan<char> RemoveDuplicateChar(this ReadOnlySpan<char> span, char duplicateChar)
@@ -83,31 +83,38 @@ namespace PdfExtractor.Extensions
 
             return stringBuilder.ToString().AsSpan();
         }
-        internal static int Count(this ReadOnlySpan<char> span, char charToCount)
+        internal static int Count(this ReadOnlySpan<char> span, IEnumerable<char> charsToCount)
         {
             if (span == null) throw new ArgumentException("Argument span can't be null");
             int count = 0;
 
-            foreach(char c in span)             
-                if(c == charToCount) count++;
-            
+            foreach (char c in span)
+                if (charsToCount.Contains(c)) count++;
+
             return count;
         }
 
-        internal static int IndexOfNthOccurence(this ReadOnlySpan<char> span, int charToLookFor, int occuranceNumber)
+        internal static int IndexOfNthOccurence(this ReadOnlySpan<char> span, IEnumerable<char> charsToLookFor, int occuranceNumber)
         {
             int countOccurences = 0;
             int currentIndex = 0;
             foreach (char character in span)
             {
-                if (character == charToLookFor) countOccurences++;
+                if (charsToLookFor.Contains(character)) countOccurences++;
                 if (countOccurences == occuranceNumber) return currentIndex;
                 currentIndex++;
             }
             return -1;
         }
 
-     
+        internal static bool Contains(this ReadOnlySpan<char> span, IEnumerable<char> charsToCheck)
+        {
+            foreach (char c in span)
+                if (charsToCheck.Contains(c)) return true;
+            return false;
+        }
+
+
 
     }
 }

@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "PdfExtractorNuget": {
+      "commandName": "Project"
+    },
+    "Executable_Debug": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\shale\\source\\repos\\PdfExtractorNuget\\Executable\\bin\\Debug\\net8.0\\Executable.exe",
+      "workingDirectory": "C:\\Users\\shale\\source\\repos\\PdfExtractorNuget\\Executable"
+    }
+  }
+}

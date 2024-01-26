@@ -7,7 +7,7 @@ namespace PdfExtractor.Models.Requirement
         public RequirementType Type;
         public RequirementParam RequirementParam;
 
-        internal RequirementModel(RequirementType type, RequirementParam requirementParam)
+        public RequirementModel(RequirementType type, RequirementParam requirementParam)
         {
             Type = type;
             RequirementParam = requirementParam;

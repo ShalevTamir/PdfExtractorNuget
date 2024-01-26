@@ -4,7 +4,7 @@
     { 
         public double Value;
 
-        internal RequirementParam(double value)
+        public RequirementParam(double value)
         {
             Value = value;
         }

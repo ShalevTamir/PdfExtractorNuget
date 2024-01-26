@@ -13,7 +13,7 @@ namespace PdfExtractor.Services.Sensor
             set => _instance = value;
         }
         private RangeHandler() { }
-        private const char RANGE_CHAR = '-';
+        private readonly char[] RANGE_CHARS = { '-', '–' };
         private const char GREATER_THAN_CHAR = '>';
         private const char LESS_THAN_CHAR = '<';
         private const char EQUALS_CHAR = '=';
@@ -29,7 +29,7 @@ namespace PdfExtractor.Services.Sensor
                 {
                     return HandleInequalityChars(textToTurn);
                 }
-                else if (textToTurn.Contains(RANGE_CHAR))
+                else if (textToTurn.Contains(RANGE_CHARS))
                 {
                     return HandleRangeChar(textToTurn);
                 }
@@ -40,7 +40,7 @@ namespace PdfExtractor.Services.Sensor
             }
             catch (Exception e) when (e is FormatException | e is OverflowException)
             {
-                 throw new FormatException($"Unable to parse range '{textToTurn.ToString()}'");
+                throw new FormatException($"Unable to parse range '{textToTurn.ToString()}'");
             }
 
         }
@@ -54,16 +54,16 @@ namespace PdfExtractor.Services.Sensor
             return new double[] {double.Parse(lowerRangeNumber),
                                  double.Parse(higherRangeNumber)};
         }
-        
+
         private double[] HandleInequalityChars(ReadOnlySpan<char> textToTurn)
         {
             char inequalityChar = textToTurn.Contains(GREATER_THAN_CHAR) ? GREATER_THAN_CHAR : LESS_THAN_CHAR;
-            
+
             bool containsEqualsChar = textToTurn[textToTurn.IndexOf(inequalityChar) + 1] == EQUALS_CHAR;
             int equalsOffset = containsEqualsChar ? 1 : 0;
             double numberOfRange = double.Parse(textToTurn[0] == inequalityChar ?
-                                                            textToTurn.Slice(1+equalsOffset) :
-                                                            textToTurn.Slice(0, textToTurn.Length - 1-equalsOffset));
+                                                            textToTurn.Slice(1 + equalsOffset) :
+                                                            textToTurn.Slice(0, textToTurn.Length - 1 - equalsOffset));
 
             if (textToTurn[0] == GREATER_THAN_CHAR || textToTurn[textToTurn.Length - equalsOffset - 1] == LESS_THAN_CHAR)
             {
@@ -73,7 +73,7 @@ namespace PdfExtractor.Services.Sensor
             }
             else if (textToTurn[0] == LESS_THAN_CHAR || textToTurn[textToTurn.Length - equalsOffset - 1] == GREATER_THAN_CHAR)
             {
-                if(containsEqualsChar) ++numberOfRange;
+                if (containsEqualsChar) ++numberOfRange;
                 return new double[] { double.NegativeInfinity,
                                       numberOfRange};
             }
@@ -81,13 +81,13 @@ namespace PdfExtractor.Services.Sensor
         }
         private int FindMiddleDashIndex(ReadOnlySpan<char> requirement)
         {
-            int numOfRangeChars = requirement.Count(RANGE_CHAR);
+            int numOfRangeChars = requirement.Count(RANGE_CHARS);
 
             if (numOfRangeChars > 3 || numOfRangeChars < 1)
                 throw new FormatException();
 
-            int middleDashOccurance = numOfRangeChars == 1 ? 1 : requirement[0] == RANGE_CHAR ? 2 : 1;
-            return requirement.IndexOfNthOccurence(RANGE_CHAR, middleDashOccurance);
+            int middleDashOccurance = numOfRangeChars == 1 ? 1 : RANGE_CHARS.Contains(requirement[0]) ? 2 : 1;
+            return requirement.IndexOfNthOccurence(RANGE_CHARS, middleDashOccurance);
         }
 
     }

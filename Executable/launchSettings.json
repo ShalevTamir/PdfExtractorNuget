@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Executable": {
+      "commandName": "Project",
+      "commandLineArgs": "",
+      "workingDirectory": "",
+      "executablePath": "C:\\Users\\shale\\source\\repos\\PdfExtractorNuget\\Executable\\bin\\Debug\\net8.0\\Executable.exe"
+    }
+  }
+}

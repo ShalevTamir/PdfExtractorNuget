@@ -3,8 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Title>Pdf Extractor </Title>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <Version>1.4</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+    <DefineConstants>$(DefineConstants);C:\Users\shale\source\repos\PdfExtractorNuget\PdfExtractorNuget</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

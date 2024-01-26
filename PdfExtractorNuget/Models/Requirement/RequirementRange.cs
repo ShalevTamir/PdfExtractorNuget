@@ -4,7 +4,7 @@
     {
         public double EndValue { get; set; }
 
-        internal RequirementRange(double start, double end) : base(start)
+        public RequirementRange(double start, double end) : base(start)
         {
             EndValue = end;
         }
