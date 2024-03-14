@@ -15,7 +15,7 @@ namespace PdfExtractor.Models
         {
             TelemetryParamName = telemetryParamName;
             Requirements = new RequirementModel[] {new RequirementModel(RequirementType.VALID,validRange),
-                                                    new RequirementModel(RequirementType.NORMAL,normalRange),
+                                                    new RequirementModel(RequirementType.WARNING,normalRange),
                                                     new RequirementModel(RequirementType.INVALID,invalidRange)};
             AdditionalRequirement = additionalRequirement;
         }
