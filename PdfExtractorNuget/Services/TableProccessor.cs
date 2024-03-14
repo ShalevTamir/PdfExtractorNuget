@@ -1,8 +1,10 @@
 ﻿using PdfExtractor.Models;
 using PdfExtractor.Services.Sensor;
+using PdfExtractorNuget.Services.PdfLoaders;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 
 namespace PdfExtractor.Services
 {
@@ -29,11 +31,18 @@ namespace PdfExtractor.Services
             _sensorParser = SensorParamsParser.Instance;
         }
 
+        public IEnumerable<SensorProperties> ProccessTable(Stream documentStream)
+        {
+            return ProcessTableLogic(new SpirePdfTableLoader(documentStream));
+        }
         public IEnumerable<SensorProperties> ProccessTable(string tablePath)
         {
-            PdfTableLoader pdfLoader = new PdfTableLoader(tablePath);
+            return ProcessTableLogic(new SpirePdfTableLoader(tablePath));
+        }
+        private IEnumerable<SensorProperties> ProcessTableLogic(SpirePdfTableLoader pdfLoader)
+        {
             DataSet tablesDataSet = pdfLoader.LoadDocumentTables();
-            for(int tableIndex = 0; tableIndex < tablesDataSet.Tables.Count; tableIndex++)
+            for (int tableIndex = 0; tableIndex < tablesDataSet.Tables.Count; tableIndex++)
             {
                 DataTable dataTable = tablesDataSet.Tables[tableIndex];
                 for (int rowIndex = 0; rowIndex < dataTable.Rows.Count; rowIndex++)
@@ -57,14 +66,14 @@ namespace PdfExtractor.Services
                     {
                         Console.WriteLine($"Invalid format at row {rowIndex} at table number {tableIndex}. This row could be a header");
                     }
-                    if( sensorInCurRow != null )
+                    if (sensorInCurRow != null)
                     {
                         yield return sensorInCurRow;
                     }
                 }
             }
-            
         }
+
 
        
     }
