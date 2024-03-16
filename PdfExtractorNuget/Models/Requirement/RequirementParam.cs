@@ -2,7 +2,7 @@
 {
     public class RequirementParam
     { 
-        public double Value;
+        public double Value { get; set; }
 
         public RequirementParam(double value)
         {

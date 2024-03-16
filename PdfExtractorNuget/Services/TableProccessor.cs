@@ -1,5 +1,6 @@
 ﻿using PdfExtractor.Models;
 using PdfExtractor.Services.Sensor;
+using PdfExtractorNuget.Services.Interfaces;
 using PdfExtractorNuget.Services.PdfLoaders;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace PdfExtractor.Services
         {
             return ProcessTableLogic(new SpirePdfTableLoader(tablePath));
         }
-        private IEnumerable<SensorProperties> ProcessTableLogic(SpirePdfTableLoader pdfLoader)
+        private IEnumerable<SensorProperties> ProcessTableLogic(IPdfTableLoader pdfLoader)
         {
             DataSet tablesDataSet = pdfLoader.LoadDocumentTables();
             for (int tableIndex = 0; tableIndex < tablesDataSet.Tables.Count; tableIndex++)
