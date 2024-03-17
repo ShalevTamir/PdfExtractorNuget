@@ -40,7 +40,7 @@ namespace PdfExtractor.Services
         {
             return ProcessTableLogic(new SpirePdfTableLoader(tablePath));
         }
-        private IEnumerable<SensorProperties> ProcessTableLogic(IPdfTableLoader pdfLoader)
+        private IEnumerable<SensorProperties> ProcessTableLogic(ITableLoader pdfLoader)
         {
             DataSet tablesDataSet = pdfLoader.LoadDocumentTables();
             for (int tableIndex = 0; tableIndex < tablesDataSet.Tables.Count; tableIndex++)

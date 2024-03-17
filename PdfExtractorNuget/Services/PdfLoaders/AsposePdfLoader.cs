@@ -12,7 +12,7 @@ using System.Text;
 
 namespace PdfExtractorNuget.Services.PdfLoaders
 {
-    internal class AsposePdfLoader : IPdfTableLoader
+    internal class AsposePdfLoader : ITableLoader
     {
         private Document _pdfDocument;
         public AsposePdfLoader(string documentPath)

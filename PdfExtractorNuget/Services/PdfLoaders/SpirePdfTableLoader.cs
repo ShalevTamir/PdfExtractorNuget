@@ -9,7 +9,7 @@ using System.IO;
 
 namespace PdfExtractorNuget.Services.PdfLoaders
 {
-    internal class SpirePdfTableLoader : IPdfTableLoader
+    internal class SpirePdfTableLoader : ITableLoader
     {
         private PdfDocument _pdfDocument;
 
