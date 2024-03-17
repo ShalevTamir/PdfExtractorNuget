@@ -14,6 +14,7 @@ namespace PdfExtractor.Services
         private static TableProccessor _instance;
         private SensorFactory _sensorUtils;
         private SensorParamsParser _sensorParser;
+        private TableLoaderFactory _tableLoaderFactory;
 
         private const int PARAM_NAME_INDEX = 0;
         private const int VALID_RANGE_INDEX = 1;
@@ -30,15 +31,16 @@ namespace PdfExtractor.Services
         {
             _sensorUtils = SensorFactory.Instance;
             _sensorParser = SensorParamsParser.Instance;
+            _tableLoaderFactory = TableLoaderFactory.Instance;
         }
 
-        public IEnumerable<SensorProperties> ProccessTable(Stream documentStream)
+        public IEnumerable<SensorProperties> ProccessTable(string fileName, Stream documentStream)
         {
-            return ProcessTableLogic(new SpirePdfTableLoader(documentStream));
+            return ProcessTableLogic(_tableLoaderFactory.CreateTableLoader(fileName, documentStream));
         }
         public IEnumerable<SensorProperties> ProccessTable(string tablePath)
         {
-            return ProcessTableLogic(new SpirePdfTableLoader(tablePath));
+            return ProcessTableLogic(_tableLoaderFactory.CreateTableLoader(tablePath));
         }
         private IEnumerable<SensorProperties> ProcessTableLogic(ITableLoader pdfLoader)
         {
